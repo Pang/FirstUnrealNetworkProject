@@ -16,8 +16,18 @@ class MYPROJECT_API AMovingPlatform : public AStaticMeshActor
 	
 public:
 	AMovingPlatform();
+	
 	UPROPERTY(EditAnywhere);
-	float speed = 20;
+	float Speed = 20;
+
+	UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true))
+	FVector TargetLocation;
 
 	virtual void Tick(float DeltaTime) override;
+
+private:
+	FVector GlobalTargetLocation;
+	FVector GlobalStartLocation;
+	bool firstLoad = true;
+
 };
