@@ -4,6 +4,8 @@
 #include "PlatformTrigger.h"
 #include "Components/BoxComponent.h"
 
+#include "MovingPlatform.h"
+
 // Sets default values
 APlatformTrigger::APlatformTrigger()
 {
@@ -39,6 +41,10 @@ void APlatformTrigger::BeginOverlap(UPrimitiveComponent* OverlappedComponent,
 	const FHitResult& SweepResult)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Activated!"));
+	for (AMovingPlatform* Platform : PlatformsToTrigger)
+	{
+		Platform->AddActiveTrigger();
+	}
 }
 
 void APlatformTrigger::EndOverlap(UPrimitiveComponent* OverlappedComponent,
@@ -47,4 +53,8 @@ void APlatformTrigger::EndOverlap(UPrimitiveComponent* OverlappedComponent,
 	int32 OtherBodyIndex)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Deactivated!"));
+	for (AMovingPlatform* Platform : PlatformsToTrigger)
+	{
+		Platform->RemoveActiveTrigger();
+	}
 }
