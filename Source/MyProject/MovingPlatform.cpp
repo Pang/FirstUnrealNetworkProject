@@ -16,19 +16,18 @@ AMovingPlatform::AMovingPlatform()
 	}
 }
 
+void AMovingPlatform::BeginPlay()
+{
+	GlobalStartLocation = GetActorLocation();
+	GlobalTargetLocation = GetTransform().TransformPosition(TargetLocation);
+}
+
  void AMovingPlatform::Tick(float DeltaTime)
  {
 	 Super::Tick(DeltaTime);
 
 	 if (ActiveTriggers > 0)
 	 {
-		 if (firstLoad == true)
-		 {
-			 GlobalStartLocation = GetActorLocation();
-			 GlobalTargetLocation = GetTransform().TransformPosition(TargetLocation);
-			 firstLoad = false;
-		 }
-
 		 if (HasAuthority())
 		 {
 			 FVector Location = GetActorLocation();
